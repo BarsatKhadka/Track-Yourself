@@ -1,9 +1,6 @@
 package com.project.track_yourself.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +18,30 @@ public class Memory {
     private long id;
 
     private LocalDateTime time;
+
+    private int month;
+
+    private String title;
+
+
+    @PrePersist
+    private void setTime(){
+        this.time = LocalDateTime.now();
+        this.month = this.time.getMonthValue();
+    }
+
+    @PreUpdate
+    private void setMonth() {
+        if(time !=null)
+    {
+        this.month = LocalDateTime.now().getMonthValue();
+    }
+}
+
+
+
+
+
+
     private String description;
 }
